@@ -28,3 +28,4 @@ class UserManager(BaseUserManager):
 class User(AbstractUser):
     description = models.CharField(max_length=150, null=True, blank=True)
     objects = UserManager()
+    amountOfMessages = models.IntegerField(default=1)
