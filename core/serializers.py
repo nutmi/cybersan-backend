@@ -16,4 +16,5 @@ class CustomUserSerializer(serializers.ModelSerializer):
             "amountOfMessages",
             "id",
             "achievements",
+            "terminalName",
         ]

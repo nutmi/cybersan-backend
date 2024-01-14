@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     "corsheaders",
     "message",
     "chat",
-    'drf_yasg',
+    "drf_yasg",
+    "achivments",
 ]
 
 MIDDLEWARE = [
@@ -55,7 +56,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = "cybersan.urls"
@@ -133,23 +134,21 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "core.User"
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
+# CORS_ALLOWED_ORIGINS = ["http://localhost:8080",]
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
     ),
+    # "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # "PAGE_SIZE": 10,
 }
 
 DJOSER = {
-    'SERIALIZERS': {
-        'user': 'core.serializers.CustomUserSerializer',
-        'current_user': 'core.serializers.CustomUserSerializer',  # Add this line
+    "SERIALIZERS": {
+        "user": "core.serializers.CustomUserSerializer",
+        "current_user": "core.serializers.CustomUserSerializer",  # Add this line
     },
 }
-
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8080",
-]

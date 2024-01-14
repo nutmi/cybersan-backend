@@ -7,25 +7,20 @@ User = get_user_model()
 
 
 class MessageSerializer(serializers.ModelSerializer):
-    name = serializers.CharField(source="user.username", read_only=True)
+    # name = serializers.CharField(source="user.username", read_only=True)
     whos_message = serializers.SerializerMethodField()
     user_display = CustomUserSerializer(source="user", read_only=True)
 
     class Meta:
         model = Message
-        fields = ["user", "chat", "text", "name", "id", "whos_message", "user_display"]
+        fields = ["user", "chat", "text", "id", "whos_message", "user_display"]
         read_only_fields = ["id", "user_display"]
 
     def create(self, validated_data):
-        # Extract the user from the validated data
         user = validated_data.get("user")
         print(user)
-
-        # Create the message
-
         message = Message.objects.create(**validated_data)
 
-        # Increment the amountOfMessages for the user
         if user:
             if user.amountOfMessages >= 100:
                 user.achievements.create(achivment_id=1)

@@ -29,3 +29,4 @@ class User(AbstractUser):
     description = models.CharField(max_length=150, null=True, blank=True)
     objects = UserManager()
     amountOfMessages = models.IntegerField(default=1)
+    terminalName = models.CharField(default="cybersan.com", max_length=30)
