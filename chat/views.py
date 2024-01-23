@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import mixins, viewsets
 from .models import Chat
-from .serializers import HomeSerializer
+from .serializers import ChatSerializer
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.authentication import TokenAuthentication
 
@@ -11,7 +11,7 @@ from rest_framework.authentication import TokenAuthentication
 class ChatViewSet(
     mixins.ListModelMixin, mixins.RetrieveModelMixin, viewsets.GenericViewSet
 ):
-    serializer_class = HomeSerializer
+    serializer_class = ChatSerializer
     queryset = Chat.objects.all()
     permission_classes = [IsAuthenticatedOrReadOnly]
     lookup_field = "id"
