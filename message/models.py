@@ -12,6 +12,7 @@ class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     chat = models.ForeignKey(Chat, on_delete=models.CASCADE)
     text = models.CharField(max_length=150)
+    censured_text = models.CharField(max_length=150, blank=True)
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:

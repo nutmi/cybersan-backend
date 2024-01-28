@@ -13,23 +13,34 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ["user", "chat", "text", "id", "whos_message", "user_display"]
+        fields = ["user", "chat", "text", "censured_text", "id", "whos_message", "user_display"]
         read_only_fields = ["id", "user_display"]
 
+
     def create(self, validated_data):
+
         user = validated_data.get("user")
-        print(user)
-        message = Message.objects.create(**validated_data)
+        forbidden_words = ['cherry', 'naruto', 'jjk']
+
+        text = validated_data['text']
+        censured_text = validated_data["censured_text"]
+
+        new_message = [
+            '*' * len(word) if word in forbidden_words else word
+            for word in text.split()
+        ]
+        
+        validated_data['censured_text'] = ' '.join(new_message)
 
         if user:
             if user.amountOfMessages >= 100:
                 user.achievements.create(achivment_id=1)
             elif user.amountOfMessages >= 500:
                 user.achievements.create(achivment_id=2)
-
-            print("yes")
             user.amountOfMessages += 1  # Adjust the field name
             user.save()
+
+        message = Message.objects.create(**validated_data)
 
         return message
 
